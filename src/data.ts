@@ -689,7 +689,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 4200000,
     description: "Hotel mewah berkelas tinggi yang menghadap langsung ke Taman Kekaisaran Tokyo. Dilengkapi dengan pusat kebugaran mutakhir dan ruang konferensi eksekutif elit.",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600&auto=format&fit=crop",
+    image: "https://plus.unsplash.com/premium_photo-1661903136240-a97367001a64?",
     amenities: ["Spa Kesehatan", "Ruang Rapat", "Wifi Super Cepat", "Makan Pagi Internasional", "Akses Gym 24 Jam", "Parkir Valet"]
   },
   {
@@ -711,7 +711,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 3800000,
     description: "Menyajikan kemewahan mutlak khas Ritz-Carlton di jantung Gangnam, Seoul. Lokasi ideal untuk menjamu mitra bisnis lokal Anda secara representatif.",
-    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1661697774185-31ea40e89ad6?",
     amenities: ["Restoran Berbintang Michelin", "Akses Lounge VIP", "Kamar Kedap Suara", "Stasiun Pengisian Daya Mobil Listrik", "Layanan Pramutamu Khusus"]
   },
   {
@@ -733,7 +733,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 9500000,
     description: "Simbol kemewahan legendaris Paris sejak 1913. Berlokasi di Avenue Montaigne dengan pemandangan langsung ke Menara Eiffel dari balkon kamar eksklusif Anda.",
-    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1723119832675-0031e0f0408c?q",
     amenities: ["Balkon Menghadap Eiffel", "Spa Dior Institute", "Bar Anggur Antik", "Supir Rolls-Royce Privat", "Layanan Setrika Jas Kilat"]
   },
   {
@@ -744,7 +744,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 8900000,
     description: "Berada megah di lereng perbukitan Zurich dengan spa seluas 4.000 meter persegi. Menyeimbangkan ketenangan alami pegunungan dengan kenyamanan teknologi modern.",
-    image: "https://images.unsplash.com/photo-1521783593447-5702b8991419?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?",
     amenities: ["Spa Termal Alps", "Kolam Air Hangat Luar Ruang", "Koleksi Seni Eksklusif Dunia", "Layanan Helikopter (Opsional)", "Restoran Dua Bintang Michelin"]
   },
   {
@@ -766,7 +766,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 5500000,
     description: "Resor pantai ultra-mewah bintang 5 di kawasan nusa dua bali yang meraih predikat salah satu kolam renang pinggir pantai tercantik di dunia.",
-    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=600&auto=format&fit=crop",
     amenities: ["Pantai Privat Nusa Dua", "Mulia Executive Lounge", "Kolam Renang Mewah Oceanfront", "Makan Malam Buffet Internasional", "Spa Premium Relaksasi"]
   },
   {
@@ -777,7 +777,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 9100000,
     description: "Hotel mewah bertema modern minimalis rancangan desainer dunia Giorgio Armani langsung di dalam struktur megah gedung tertinggi dunia Burj Khalifa.",
-    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?",
     amenities: ["Kamar Terintegrasi Burj Khalifa", "Restoran Armani Ristorante", "Akses Mall Terbesar Dubai Mall", "Kolam Air Panas Relaksasi", "Sopir Bentley Privat"]
   },
   {
@@ -799,7 +799,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 6800000,
     description: "Dikenal luas sebagai 'Grande Dame of the Far East'. Menyajikan kemegahan klasik dipadupadankan armada Rolls-Royce Phantom legendaris berwarna hijau khas Peninsula.",
-    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=600&auto=format&fit=crop",
+    image: "https://plus.unsplash.com/premium_photo-1687960116497-0dc41e1808a2?q",
     amenities: ["Armada Rolls-Royce Phantom Privat", "Kolam Renang Bergaya Roma Kuno", "Helipad Atap Gedung", "Akses Teh Sore Legendaris", "Pusat Rapat Bisnis Elit"]
   },
   {
@@ -810,7 +810,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 6900000,
     description: "Satu-satunya Istana Kekaisaran Ottoman kuno yang disulap menjadi hotel mewah bintang 5 tepat di tepi garis perairan Selat Bosphorus yang menawan.",
-    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1724947053227-2335bf21d0ae?",
     amenities: ["Infinitiy Pool Tepi Selat Bosphorus", "Kubah Istana Sejarah Ottoman", "Jamuan Makan Malam Kenegaraan", "Dermaga Helikopter Pribadi", "Layanan Pijat Hammam Turki"]
   },
   {
@@ -821,7 +821,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 5200000,
     description: "Hotel paling legendaris di Jerman, terletak tepat di samping Gerbang Brandenburg yang ikonik. Pusat pertemuan diplomatik dan politik dunia kelas atas.",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600&auto=format&fit=crop",
+    image: "https://plus.unsplash.com/premium_photo-1746471641440-124e23d6e634?",
     amenities: ["Pemandangan Gerbang Brandenburg", "Restoran Dua Bintang Michelin", "Akses Lounge Konsuler", "Kolam Renang Hangat Indoor", "Layanan Pramutamu Kelas Atas"]
   },
   {
@@ -832,7 +832,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 5800000,
     description: "Membentuk siluet layar kapal raksasa yang menakjubkan di sepanjang Pantai Barceloneta. Menawarkan panorama laut Mediterania terbentang tanpa batas yang modern.",
-    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=600&auto=format&fit=crop",
+    image: "https://plus.unsplash.com/premium_photo-1675745330148-1f7e5a7674a5?q",
     amenities: ["Infinity Pool Tepi Pantai", "Rooftop Edge Bar Cocktails", "Lantai Kamar Jendela Penuh", "Akses Langsung Pantai Barceloneta", "Kualitas Spa Pemurni Kulit"]
   },
   {
@@ -843,7 +843,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 5900000,
     description: "Kemewahan klasik sejati di sepanjang tepian Sungai Amstel berarsitektur megah semenjak abad ke-19. Pusat sejarah budaya Amsterdam terdekat.",
-    image: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1757439402375-2f2a4ab0dc75?",
     amenities: ["Dermaga Perahu Privat Sungai", "Terapi Kulit Guerlain Spa", "Restoran Berbintang Flore", "Koneksi Wifi Korporat Prima", "Layanan Pramutamu 24 Jam"]
   }
 ];
