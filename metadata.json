@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Gogo Tour",
+  "description": "Solusi perjalanan bisnis korporat serta liburan premium terkurasi di Asia dan Eropa lengkap dengan pendampingan VIP, hotel bintang 5, kalkulasi Rupiah, dan perencana itinerary bertenaga Gemini AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
