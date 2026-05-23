@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { TESTIMONIALS } from "../data";
-import { Award, ShieldCheck, Headphones, Star, Mail, MapPin, Phone, Building } from "lucide-react";
+import { Award, ShieldCheck, Headphones, Star, Mail, MapPin, Phone, Building, CheckCircle2 } from "lucide-react";
 
 export const AboutUs: React.FC = () => {
+  const [companyName, setCompanyName] = useState("");
+  const [repPhone, setRepPhone] = useState("");
+  const [isSent, setIsSent] = useState(false);
+
+  const handleSubmitCallback = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!companyName.trim() || !repPhone.trim()) return;
+    setIsSent(true);
+  };
   return (
     <div className="py-12 bg-white px-4 font-sans text-left text-slate-800">
       <div className="max-w-7xl mx-auto space-y-16">
@@ -146,24 +155,55 @@ export const AboutUs: React.FC = () => {
 
           <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
             <h4 className="font-bold text-slate-900 text-sm font-display">Butuh Callback Penawaran?</h4>
-            <div className="grid grid-cols-1 gap-3">
-              <input
-                type="text"
-                placeholder="Nama Perusahaan Anda"
-                className="bg-slate-50 text-slate-800 text-xs p-3 rounded-lg border border-slate-200 focus:outline-none focus:border-sky-500"
-              />
-              <input
-                type="text"
-                placeholder="Nomor Telepon Representatif"
-                className="bg-slate-50 text-slate-800 text-xs p-3 rounded-lg border border-slate-200 focus:outline-none focus:border-sky-500"
-              />
-              <button 
-                onClick={() => alert("Terima kasih! Representatif bisnis Gogo Tour akan segera menghubungi Anda dalam waktu 5 menit melalui telepon.")}
-                className="py-3 rounded-lg bg-gradient-to-r from-sky-500 to-pink-500 text-white text-xs font-bold shadow-md shadow-pink-500/10 hover:brightness-110 transition-all text-center cursor-pointer"
-              >
-                Minta Telepon Hubungan Korporat
-              </button>
-            </div>
+            {isSent ? (
+              <div className="bg-emerald-50 border border-emerald-200 p-5 rounded-xl space-y-3 text-center animate-fadeIn">
+                <div className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center mx-auto shadow-md">
+                  <CheckCircle2 className="w-5 h-5 text-white" />
+                </div>
+                <div className="space-y-1">
+                  <h5 className="text-xs font-bold text-slate-900">Permintaan Callback Diterima!</h5>
+                  <p className="text-[11px] text-slate-655 text-slate-600 leading-relaxed font-normal">
+                    Terima kasih. Hubungan Korporat Gogo Tour akan menghubungi representatif dari <strong className="text-slate-805">{companyName}</strong> di nomor <strong className="text-slate-805">{repPhone}</strong> dalam kurun waktu 5 menit.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsSent(false);
+                    setCompanyName("");
+                    setRepPhone("");
+                  }}
+                  className="text-[10px] text-sky-600 hover:text-sky-700 font-bold underline cursor-pointer"
+                >
+                  Kirim Permintaan Baru
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmitCallback} className="grid grid-cols-1 gap-3">
+                <input
+                  type="text"
+                  required
+                  placeholder="Nama Perusahaan Anda"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  className="bg-slate-50 text-slate-800 text-xs p-3 rounded-lg border border-slate-200 focus:outline-none focus:border-sky-500 transition-colors"
+                />
+                <input
+                  type="tel"
+                  required
+                  placeholder="Nomor Telepon Representatif"
+                  value={repPhone}
+                  onChange={(e) => setRepPhone(e.target.value)}
+                  className="bg-slate-50 text-slate-800 text-xs p-3 rounded-lg border border-slate-200 focus:outline-none focus:border-sky-500 transition-colors"
+                />
+                <button 
+                  type="submit"
+                  className="py-3 rounded-lg bg-gradient-to-r from-sky-500 to-pink-500 text-white text-xs font-bold shadow-md shadow-pink-500/10 hover:brightness-110 active:scale-[0.99] transition-all text-center cursor-pointer"
+                >
+                  Minta Telepon Hubungan Korporat
+                </button>
+              </form>
+            )}
           </div>
         </div>
 

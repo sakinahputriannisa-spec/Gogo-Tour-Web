@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { HOTELS, DESTINATIONS, formatRupiah } from "../data";
 import { BookingFormState } from "../types";
-import { Hotel as HotelIcon, Star, Check, Calendar, Users, Moon, Briefcase, FileText, Sparkles, Building2, MapPin } from "lucide-react";
+import { Hotel as HotelIcon, Star, Check, Calendar, Users, Moon, Briefcase, FileText, Sparkles, Building2, MapPin, Download } from "lucide-react";
+import { downloadAsFile } from "../utils/download";
 
 interface HotelBookingProps {
   preselectedCountryId?: string;
@@ -59,6 +60,7 @@ export const HotelBooking: React.FC<HotelBookingProps> = ({ preselectedCountryId
   };
 
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [bookingCode, setBookingCode] = useState<string>("");
   const [finalInvoice, setFinalInvoice] = useState<{
     hotelCost: number;
     subtotal: number;
@@ -142,7 +144,43 @@ export const HotelBooking: React.FC<HotelBookingProps> = ({ preselectedCountryId
       alert("Harap lengkapi nama, email, dan telepon Anda terlebih dahulu.");
       return;
     }
+    const derivedCode = `GOGO-HOTEL-${Math.floor(10000 + Math.random() * 90000)}`;
+    setBookingCode(derivedCode);
     setBookingSuccess(true);
+  };
+
+  const handleDownloadHotelInvoice = () => {
+    if (!finalInvoice) return;
+    const fileContent = `==================================================\n` +
+                        `             GOGO TOUR HOTEL RESERVATION          \n` +
+                        `==================================================\n` +
+                        `KODE TRANSAKSI: ${bookingCode}\n` +
+                        `Tanggal       : ${new Date().toLocaleDateString()}\n` +
+                        `Status        : RECONCILING WITH HOTEL PARTNER\n` +
+                        `--------------------------------------------------\n` +
+                        `Pelanggan     : ${formData.fullName}\n` +
+                        `Telepon/WA    : ${formData.phone}\n` +
+                        `Email         : ${formData.email}\n` +
+                        `--------------------------------------------------\n` +
+                        `Rincian Hotel & Akomodasi:\n` +
+                        `Hotel         : ${selectedHotel.name}\n` +
+                        `Lintas Negara : ${selectedHotel.country}\n` +
+                        `Tanggal Check-in: ${formData.startDate}\n` +
+                        `Jumlah Tamu   : ${formData.numberOfPeople} Orang\n` +
+                        `Kamar Dipesan : ${roomsCount} Kamar\n` +
+                        `Durasi Menginap: ${formData.numberOfNights} Malam\n` +
+                        `Metode Bayar  : ${getPaymentLabel(formData.paymentMethod)}\n` +
+                        `--------------------------------------------------\n` +
+                        `Rincian Biaya:\n` +
+                        `Biaya Kamar Dasar     : ${formatRupiah(finalInvoice.hotelCost)}\n` +
+                        (formData.isBusinessTrip ? `Diskon B2B Korporasi (10%): -${formatRupiah(finalInvoice.corporateDiscount)}\n` : "") +
+                        `--------------------------------------------------\n` +
+                        `TOTAL TAGIHAN         : ${formatRupiah(finalInvoice.grandTotal)}\n` +
+                        `==================================================\n` +
+                        `Terima kasih telah mempercayai Gogo Tour Indonesia!\n` +
+                        `Reservasi Anda akan dikirim asisten VIP pribadi langsung.\n` +
+                        `==================================================`;
+    downloadAsFile(fileContent, `GogoTour_HotelInvoice_${bookingCode}.txt`);
   };
 
   const handleReset = () => {
@@ -161,6 +199,7 @@ export const HotelBooking: React.FC<HotelBookingProps> = ({ preselectedCountryId
       notes: "",
       paymentMethod: "bank-transfer"
     });
+    setBookingCode("");
     setBookingSuccess(false);
   };
 
@@ -186,17 +225,17 @@ export const HotelBooking: React.FC<HotelBookingProps> = ({ preselectedCountryId
 
         {bookingSuccess ? (
           /* SUCCESS STATE */
-          <div className="max-w-xl mx-auto bg-white border border-slate-200 p-8 rounded-2xl shadow-2xl text-center space-y-6 animate-fadeIn">
+          <div className="max-w-xl mx-auto bg-white border border-slate-200 p-8 rounded-3xl shadow-2xl text-center space-y-6 animate-fadeIn">
             <div className="w-16 h-16 bg-gradient-to-tr from-sky-500 to-pink-500 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-pink-500/15">
               <Check className="w-8 h-8 text-white stroke-[3]" />
             </div>
 
             <h3 className="text-2xl font-black text-slate-900 font-display">Booking Hotel Berhasil!</h3>
             
-            <div className="text-left bg-slate-50 p-5 rounded-xl border border-slate-200 text-xs space-y-3 text-slate-700">
+            <div className="text-left bg-slate-50 p-5 rounded-2xl border border-slate-200 text-xs space-y-3.5 text-slate-700">
               <p className="font-bold text-sky-600 text-sm border-b border-slate-200 pb-2 flex justify-between">
                 <span>KODE RESERVASI HOTEL:</span>
-                <span className="font-mono">GOGO-HOTEL-{Math.floor(1000 + Math.random() * 9000)}</span>
+                <span className="font-mono">{bookingCode}</span>
               </p>
               <div className="grid grid-cols-2 gap-y-2">
                 <div>Nama Lengkap:</div>
@@ -251,19 +290,21 @@ export const HotelBooking: React.FC<HotelBookingProps> = ({ preselectedCountryId
               E-Voucher hotel beserta invoice penagihan resmi telah dikirim ke <strong className="text-slate-800 font-semibold">{formData.email}</strong>. Concierge hotel kami akan berkoordinasi langsung untuk penjemputan bandara atau permintaan khusus kamar Anda.
             </p>
 
-            <button
-              onClick={handleReset}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-pink-500 text-white font-extrabold text-sm shadow-lg shadow-pink-500/15 hover:brightness-110 active:scale-95 transition-all"
-            >
-              Buat Pemesanan Hotel Baru
-            </button>
+            <div className="pt-2">
+              <button
+                onClick={handleReset}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-pink-500 hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-pink-500/10 transition-all cursor-pointer"
+              >
+                Buat Pemesanan Hotel Baru
+              </button>
+            </div>
           </div>
         ) : (
           /* CORE BOOKING INTERFACE */
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Left: Hotel Cards Selection */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-12 xl:col-span-7 space-y-6">
               <h3 className="text-lg font-bold text-slate-900 flex items-center space-x-2 font-display">
                 <HotelIcon className="w-5 h-5 text-sky-500" />
                 <span>1. Pilih Hotel Bintang 5 Mewah</span>
@@ -347,7 +388,7 @@ export const HotelBooking: React.FC<HotelBookingProps> = ({ preselectedCountryId
 
             {/* Right: Booking Form & Invoice dynamic calculator */}
             <div className="lg:col-span-12 xl:col-span-5 relative">
-              <div className="bg-slate-50 border border-slate-200 p-6 rounded-2xl shadow-xl space-y-6 sticky top-24">
+              <div className="bg-slate-50 border border-slate-200 p-6 rounded-3xl shadow-xl space-y-5 sticky top-24">
                 
                 <div className="flex items-center justify-between pb-4 border-b border-slate-200">
                   <h3 className="text-lg font-bold text-slate-905 flex items-center space-x-2 font-display">

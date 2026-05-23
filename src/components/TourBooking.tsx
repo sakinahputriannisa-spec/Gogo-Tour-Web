@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DESTINATIONS, formatRupiah } from "../data";
-import { Compass, CheckCircle, Calendar, Users, Briefcase, FileText, Sparkles, MapPin, Check, ArrowRight, ShieldCheck, Plane, Award, Sparkle } from "lucide-react";
+import { Compass, CheckCircle, Calendar, Users, Briefcase, FileText, Sparkles, MapPin, Check, ArrowRight, ShieldCheck, Plane, Award, Sparkle, Download } from "lucide-react";
+import { downloadAsFile } from "../utils/download";
 
 interface TourBookingProps {
   preselectedCountryId?: string;
@@ -49,6 +50,7 @@ export const TourBooking: React.FC<TourBookingProps> = ({ preselectedCountryId }
   };
 
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [bookingCode, setBookingCode] = useState<string>("");
   const [activeContinent, setActiveContinent] = useState<"Semua" | "Asia" | "Eropa">("Semua");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -143,7 +145,44 @@ export const TourBooking: React.FC<TourBookingProps> = ({ preselectedCountryId }
       alert("Harap lengkapi formulir pendaftaran Anda terlebih dahulu.");
       return;
     }
+    const derivedCode = `GOGO-TOUR-TRIP-${Math.floor(10000 + Math.random() * 90000)}`;
+    setBookingCode(derivedCode);
     setBookingSuccess(true);
+  };
+
+  const handleDownloadInvoice = () => {
+    if (!priceInvoice) return;
+    const fileContent = `==================================================\n` +
+                        `             GOGO TOUR OFFICIAL INVOICE          \n` +
+                        `==================================================\n` +
+                        `KODE TRANSAKSI: ${bookingCode}\n` +
+                        `Tanggal       : ${new Date().toLocaleDateString()}\n` +
+                        `Status        : MENUNGGU PEMBAYARAN / VERIFIKASI\n` +
+                        `--------------------------------------------------\n` +
+                        `Pelanggan     : ${formData.fullName}\n` +
+                        `Telepon/WA    : ${formData.phone}\n` +
+                        `Email         : ${formData.email}\n` +
+                        `--------------------------------------------------\n` +
+                        `Rincian Perjalanan:\n` +
+                        `Destinasi     : ${selectedDest.name} (${selectedDest.continent})\n` +
+                        `Hari Berangkat: ${formData.startDate}\n` +
+                        `Jumlah Pax    : ${formData.numberOfPeople} Orang\n` +
+                        `Kelas Pesawat : ${formData.flightClass.toUpperCase()}\n` +
+                        `Layanan VIP   : ${formData.packageClass.toUpperCase()}\n` +
+                        `Metode Bayar  : ${getPaymentLabel(formData.paymentMethod)}\n` +
+                        `--------------------------------------------------\n` +
+                        `Rincian Biaya:\n` +
+                        `Biaya Tur Dasar       : ${formatRupiah(priceInvoice.baseTourCost)}\n` +
+                        `Tambahan Tiket Pesawat: ${formatRupiah(priceInvoice.flightAddon)}\n` +
+                        `Tambahan Proteksi VIP : ${formatRupiah(priceInvoice.packageTierAddon)}\n` +
+                        (formData.isBusinessTrip ? `Diskon B2B (10%)      : -${formatRupiah(priceInvoice.corporateDiscount)}\n` : "") +
+                        `--------------------------------------------------\n` +
+                        `TOTAL TAGIHAN         : ${formatRupiah(priceInvoice.grandTotal)}\n` +
+                        `==================================================\n` +
+                        `Terima kasih telah mempercayai Gogo Tour Indonesia!\n` +
+                        `Silakan lakukan pembayaran sesuai metode transaksi.\n` +
+                        `==================================================`;
+    downloadAsFile(fileContent, `GogoTour_Invoice_${bookingCode}.txt`);
   };
 
   const handleReset = () => {
@@ -160,6 +199,7 @@ export const TourBooking: React.FC<TourBookingProps> = ({ preselectedCountryId }
       notes: "",
       paymentMethod: "bank-transfer"
     });
+    setBookingCode("");
     setBookingSuccess(false);
   };
 
@@ -201,7 +241,7 @@ export const TourBooking: React.FC<TourBookingProps> = ({ preselectedCountryId }
             <div className="text-left bg-slate-50 p-5 rounded-2xl border border-slate-200 text-xs space-y-3.5 text-slate-705">
               <p className="font-extrabold text-sky-600 text-sm border-b border-slate-200 pb-2 flex justify-between">
                 <span>NOMOR BOOKING KANTOR:</span>
-                <span className="font-mono">GOGO-TOUR-TRIP-{Math.floor(10000 + Math.random() * 90000)}</span>
+                <span className="font-mono">{bookingCode}</span>
               </p>
               
               <div className="grid grid-cols-2 gap-y-2">
@@ -269,12 +309,14 @@ export const TourBooking: React.FC<TourBookingProps> = ({ preselectedCountryId }
               Invoice resmi korporasi Anda untuk pengusulan pendanaan (reimbursement) telah dikirim langsung ke <strong className="text-slate-850 font-semibold">{formData.email}</strong>. Travel Consultant kami akan menghubungi nomor WhatsApp Anda dalam waktu 5-10 menit untuk menjadwalkan courier penjemputan berkas paspor fisik guna pengurusan visa gratis.
             </p>
 
-            <button
-              onClick={handleReset}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-sky-500 to-pink-500 text-white font-extrabold text-sm shadow-xl hover:brightness-110 active:scale-95 transition-all"
-            >
-              Ajukan Reservasi Tur Lainnya
-            </button>
+            <div className="pt-2">
+              <button
+                onClick={handleReset}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-pink-500 hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-pink-500/10 transition-all cursor-pointer"
+              >
+                Ajukan Reservasi Tur Lainnya
+              </button>
+            </div>
           </div>
         ) : (
           /* CORE SELECTOR GRID */

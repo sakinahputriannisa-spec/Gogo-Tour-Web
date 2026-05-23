@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ItineraryRequest } from "../types";
-import { Sparkles, Calendar, Target, HelpCircle, ArrowRight, Clipboard, RefreshCw, Send, AlertTriangle } from "lucide-react";
+import { Sparkles, Calendar, Target, HelpCircle, ArrowRight, Clipboard, RefreshCw, Send, AlertTriangle, Download } from "lucide-react";
+import { downloadAsFile } from "../utils/download";
 
 export const AIPresenter: React.FC = () => {
   const [formData, setFormData] = useState<ItineraryRequest>({
@@ -14,6 +15,22 @@ export const AIPresenter: React.FC = () => {
   const [aiResult, setAiResult] = useState("");
   const [copied, setCopied] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const handleDownloadItinerary = () => {
+    if (!aiResult) return;
+    const header = `==================================================\n` +
+                   `          GOGO TOUR PREMIUM AI ITINERARY          \n` +
+                   `==================================================\n` +
+                   `Destinasi    : ${formData.destination}\n` +
+                   `Durasi       : ${formData.durationDays} Hari\n` +
+                   `Fokus Agenda : ${formData.focus}\n` +
+                   `Dokumen diunduh : ${new Date().toLocaleString()}\n` +
+                   `==================================================\n\n`;
+    const footer = `\n\n==================================================\n` +
+                   `Gogo Tour Indonesia - World-Class Business Travel Planner\n` +
+                   `==================================================`;
+    downloadAsFile(header + aiResult + footer, `GogoTour_Itinerary_${formData.destination.replace(/[^a-zA-Z0-9]/g, "_")}.txt`);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -224,13 +241,22 @@ export const AIPresenter: React.FC = () => {
               </span>
               
               {aiResult && (
-                <button
-                  onClick={handleCopyToClipboard}
-                  className="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-55 border border-slate-205 text-slate-600 hover:text-slate-900 transition-colors text-[10px] font-bold flex items-center space-x-1 shadow-sm cursor-pointer"
-                >
-                  <Clipboard className="w-3 h-3" />
-                  <span>{copied ? "Tersalin!" : "Salin Jadwal"}</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleCopyToClipboard}
+                    className="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-55 border border-slate-205 text-slate-600 hover:text-slate-900 transition-colors text-[10px] font-bold flex items-center space-x-1 shadow-sm cursor-pointer"
+                  >
+                    <Clipboard className="w-3 h-3" />
+                    <span>{copied ? "Tersalin!" : "Salin Jadwal"}</span>
+                  </button>
+                  <button
+                    onClick={handleDownloadItinerary}
+                    className="px-3 py-1.5 rounded-lg bg-pink-50 hover:bg-pink-100 border border-pink-200 text-pink-600 hover:text-pink-700 transition-colors text-[10px] font-bold flex items-center space-x-1 shadow-sm cursor-pointer"
+                  >
+                    <Download className="w-3 h-3" />
+                    <span>Unduh File (.txt)</span>
+                  </button>
+                </div>
               )}
             </div>
 
