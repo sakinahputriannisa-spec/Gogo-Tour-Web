@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Plane, Globe, Shield, Ticket, Luggage, Star, Award, ChevronRight, CheckCircle2, AlertCircle, Sparkles, Download } from "lucide-react";
+import { Plane, Globe, Shield, Ticket, Luggage, Star, Award, ChevronRight, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
 import { DESTINATIONS } from "../data";
-import { downloadAsFile } from "../utils/download";
 
 interface Airline {
   id: string;
@@ -214,28 +213,6 @@ export const AirlinePartners: React.FC = () => {
     setSeatNo(seats[Math.floor(Math.random() * seats.length)]);
     setBoardingPassCount(prev => prev + 1);
     setShowPass(true);
-  };
-
-  const handleDownloadBoardingPass = () => {
-    const ticketNo = `GT-${100000 + boardingPassCount}`;
-    const fileContent = `==================================================\n` +
-                        `       GOGO TOUR VIP BOARDING PASS TICKET        \n` +
-                        `==================================================\n` +
-                        `ID Tiket     : ${ticketNo}\n` +
-                        `Status       : MENUNGGU VERIFIKASI (SIAP CETAK)\n` +
-                        `Maskapai     : ${selectedAirline.name}\n` +
-                        `Kelas        : ${selectedPassClass}\n` +
-                        `--------------------------------------------------\n` +
-                        `Nama Traveler: ${userName}\n` +
-                        `Pemberangkatan: Jakarta (CGK)\n` +
-                        `Tujuan Akhir : ${userDest}\n` +
-                        `--------------------------------------------------\n` +
-                        `Gate         : ${boardingGate} | Seat: ${seatNo} | Zone: Z1\n` +
-                        `==================================================\n` +
-                        `Silakan bawa file cetak asisten VIP ke counter check-in.\n` +
-                        `Gogo Tour Indonesia - Luxury Tour & VIP Travel Solutions\n` +
-                        `==================================================`;
-    downloadAsFile(fileContent, `GogoTour_BoardingPass_${userName.replace(/[^a-zA-Z0-9]/g, "_")}.txt`);
   };
 
   return (
@@ -634,16 +611,6 @@ export const AirlinePartners: React.FC = () => {
                       <span className="font-bold text-emerald-600">MENUNGGU VERIFIKASI</span>
                     </div>
                   </div>
-                  
-                  {/* Download Ticket Button */}
-                  <button
-                    type="button"
-                    onClick={handleDownloadBoardingPass}
-                    className="w-full mt-3 py-2.5 rounded-xl bg-sky-50 hover:bg-sky-100 border border-sky-200 text-sky-700 font-extrabold text-[11px] transition-all flex items-center justify-center space-x-1.5 cursor-pointer"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Download Tiket Boarding Pass (TXT)</span>
-                  </button>
                 </div>
               ) : (
                 <div className="border border-slate-200 border-dashed rounded-2xl p-8 text-center bg-slate-50 flex flex-col items-center justify-center space-y-2 h-[180px]">

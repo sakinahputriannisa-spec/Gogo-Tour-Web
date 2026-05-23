@@ -689,7 +689,7 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     pricePerNight: 4200000,
     description: "Hotel mewah berkelas tinggi yang menghadap langsung ke Taman Kekaisaran Tokyo. Dilengkapi dengan pusat kebugaran mutakhir dan ruang konferensi eksekutif elit.",
-    image: "https://plus.unsplash.com/premium_photo-1661903136240-a97367001a64?",
+    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?",
     amenities: ["Spa Kesehatan", "Ruang Rapat", "Wifi Super Cepat", "Makan Pagi Internasional", "Akses Gym 24 Jam", "Parkir Valet"]
   },
   {
