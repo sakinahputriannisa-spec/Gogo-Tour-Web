@@ -13,6 +13,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const navItems = [
     { id: "home", label: "Beranda", icon: <HomeIcon className="w-4 h-4" /> },
     { id: "destinasi", label: "Destinasi Wisata", icon: <Compass className="w-4 h-4" /> },
+    { id: "maskapai", label: "Mitra Maskapai", icon: <Plane className="w-4 h-4" /> },
     { id: "tentang-kami", label: "Tentang Kami", icon: <Info className="w-4 h-4" /> },
     { id: "ai-assistant", label: "Rencana AI", icon: <Sparkles className="w-4 h-4 text-pink-400 animate-pulse" />, isSpecial: true }
   ];

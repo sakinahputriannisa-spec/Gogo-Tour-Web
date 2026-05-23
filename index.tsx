@@ -11,7 +11,8 @@ import { HotelBooking } from './src/components/HotelBooking';
 import { TourBooking } from './src/components/TourBooking';
 import { AboutUs } from './src/components/AboutUs';
 import { AIPresenter } from './src/components/AIPresenter';
-import { Compass, Sparkles, Shield, HeartHandshake, CreditCard, Building, Mail, Phone, PlaneTakeoff } from 'lucide-react';
+import { AirlinePartners } from './src/components/AirlinePartners';
+import { Compass, Sparkles, Shield, HeartHandshake, CreditCard, Building, Mail, Phone, PlaneTakeoff, ChevronRight } from 'lucide-react';
 
 function App() {
   const [activeTab, setActiveTab ] = useState<string>("home");
@@ -89,6 +90,33 @@ function App() {
                 </div>
               </div>
 
+              {/* Official Airline Partners Promo Banner on Home page */}
+              <div className="bg-gradient-to-tr from-slate-900 via-slate-950 to-slate-900 border-y border-slate-800 text-white py-12 px-6 shadow-xl overflow-hidden relative">
+                <div className="absolute top-0 right-1/4 w-96 h-96 bg-pink-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10 text-left">
+                  <div className="space-y-3.5 max-w-3xl">
+                    <span className="inline-block text-[10px] uppercase font-bold tracking-widest text-sky-400 bg-sky-500/10 border border-sky-400/25 px-2.5 py-1 rounded-full">
+                      Aliansi Penerbangan Global
+                    </span>
+                    <h3 className="text-2xl md:text-3xl font-black font-display text-white">
+                      Kemitraan Maskapai Bintang 5 Internasional
+                    </h3>
+                    <p className="text-xs md:text-sm text-slate-300 font-light leading-relaxed">
+                      Kami berpartner resmi dengan maskapai kelas atas dunia seperti <span className="font-semibold text-white">Singapore Airlines</span>, <span className="font-semibold text-white">Garuda Indonesia</span>, <span className="font-semibold text-white">Qatar Airways</span>, <span className="font-semibold text-white">Emirates</span>, JAL, ANA, dan Turkish Airlines demi menyediakan jatah bagasi melimpah, makanan halal, serta kepastian terbang VIP.
+                    </p>
+                  </div>
+                  <div className="shrink-0">
+                    <button 
+                      onClick={() => setActiveTab("maskapai")}
+                      className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-pink-500 text-white font-bold text-xs shadow-md shadow-pink-500/10 hover:brightness-110 active:scale-95 transition-all text-center flex items-center space-x-1.5 cursor-pointer"
+                    >
+                      <span>Lihat Mitra & Homepage</span>
+                      <ChevronRight className="w-4 h-4 text-white" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               {/* Destination Teasers banner */}
               <div className="py-16 max-w-7xl mx-auto px-4 text-center space-y-12">
                 <div className="space-y-3">
@@ -122,6 +150,12 @@ function App() {
           {activeTab === "tentang-kami" && (
             <div className="pt-4">
               <AboutUs />
+            </div>
+          )}
+
+          {activeTab === "maskapai" && (
+            <div className="pt-4">
+              <AirlinePartners />
             </div>
           )}
 
